@@ -7,27 +7,28 @@ public class Grid : MonoBehaviour {
 
 	public static Dictionary<string, int> Dic = new Dictionary<string, int>();
 	public GameObject LetterObject;
-
-	int rows = 9;
+	public GameObject EndGameOb;
+	public int rows = 9;
 	int cols = 9;
 	public Letter activeLetter;
-	public static List<List<Point>> grid = new List<List<Point>>();
-	public static List<Point> allPoints = new List<Point>();
-	public static List<Word> words = new List<Word>();
+	public List<List<Point>> grid = new List<List<Point>>();
+	public List<Point> allPoints = new List<Point>();
+	public List<Word> words = new List<Word>();
 	int prevCol = 0;
 	public TextAsset wordsList;
 	private string[] mylist;
 	public Word selectedWord;
 	private int wordNdx = 0;
-	public static List<Letter> allLetters = new List<Letter> ();
+	public List<Letter> allLetters = new List<Letter> ();
 	public int score = 0;
 	public GameObject scoreOb;
 	public GameObject diffWordsOb;
-	public static List<string> differentWords = new List<string> ();
+	public List<string> differentWords = new List<string> ();
+
 	void Start () {
 		mylist = wordsList.text.Split ("\n" [0]);
 		for (int i = 0; i < mylist.Length; ++i) {
-			Dic.Add (mylist [i], mylist[i].Length);
+			Dic.Add (mylist [i], mylist [i].Length);
 		}
 		createGrid ();
 		createNewLetter();
@@ -288,7 +289,21 @@ public class Grid : MonoBehaviour {
 	}
 		
 
-
+	public void endGame(){
+		Dic.Clear ();
+		grid.Clear ();
+		CancelInvoke ();
+		activeLetter.CancelInvoke ();
+		GameObject EndGameObj = Instantiate (EndGameOb) as GameObject;
+		EndGameObj.transform.SetParent (GameObject.Find ("Canvas").transform, false);
+		EndGameObj.transform.Find ("EndGamePanel").Find ("EndScore").GetComponent<Text> ().text = "Score: " + score;
+		int highscore = PlayerPrefs.GetInt ("HighScore");
+		if (score > highscore) {
+			PlayerPrefs.SetInt ("HighScore", score);
+		}
+		highscore = PlayerPrefs.GetInt ("HighScore");
+		EndGameObj.transform.Find ("EndGamePanel").Find ("HighScore").GetComponent<Text> ().text = "HighScore: " + highscore;
+	}
 
 	public void RemoveWord(Word a){
 		score += GetScore (a.getWord ());
@@ -486,6 +501,7 @@ public class Grid : MonoBehaviour {
 	public void updateWords(){
 		diffWordsOb.GetComponent<Text> ().text = "Unique Words: " + differentWords.Count;
 	}
+
 	public int GetScore(string a){
 		int points = 0;
 		foreach (char b in a) {

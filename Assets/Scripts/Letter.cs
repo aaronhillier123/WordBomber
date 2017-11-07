@@ -305,9 +305,15 @@ public class Letter : MonoBehaviour {
 	}
 
 	public void Land(){
-		if (Placed == false) {
+		int HighRow = GameObject.Find ("Grid").GetComponent<Grid> ().rows;
+		if (this.row == HighRow-1) {
+			Debug.Log ("ENDGAME");
+			GameObject.Find ("Grid").GetComponent<Grid> ().endGame ();
+		}
+		else if (Placed == false) {
 			myPoint.full = true;
 			Placed = true;
+
 			GameObject.Find ("Grid").GetComponent<Grid> ().createNewLetter ();
 		}
 	}
