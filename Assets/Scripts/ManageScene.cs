@@ -18,4 +18,9 @@ public class ManageScene : MonoBehaviour {
 	public void PlayGame(){
 		SceneManager.LoadScene ("Loading");
 	}
+
+	public void GoHome(){
+		SceneManager.LoadScene ("MainMenu");
+
+	}
 }

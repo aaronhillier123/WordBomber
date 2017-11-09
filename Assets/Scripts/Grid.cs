@@ -27,6 +27,7 @@ public class Grid : MonoBehaviour {
 
 	void Start () {
 		mylist = wordsList.text.Split ("\n" [0]);
+		Dic.Clear ();
 		for (int i = 0; i < mylist.Length; ++i) {
 			Dic.Add (mylist [i], mylist [i].Length);
 		}

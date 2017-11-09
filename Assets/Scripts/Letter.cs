@@ -80,7 +80,7 @@ public class Letter : MonoBehaviour {
 	}
 
 	public void selectlight(){
-		gameObject.GetComponent<SpriteRenderer> ().color = new Color (0.5f, .5f, 0.9f);
+		gameObject.GetComponent<SpriteRenderer> ().color = new Color (0.5f, .9f, 0.5f);
 	}
 
 	public void unHighLight(){

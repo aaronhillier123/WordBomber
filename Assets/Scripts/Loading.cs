@@ -6,7 +6,7 @@ public class Loading : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Invoke ("WaitLoad", 2f);
+		Invoke ("WaitLoad", 0.5f);
 	}
 	void Awake(){
 	}
